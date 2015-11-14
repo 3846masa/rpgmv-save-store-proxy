@@ -7,20 +7,33 @@ import cheerio from 'cheerio';
 
 let router = Router();
 
-let proxy = async (reqUrl, reqObj) => {
-  console.log(reqObj.headers);
+let proxy = async (req, res) => {
+  let reqUrl = req.url.substr(1);
   let filename = url.parse(reqUrl).pathname.split('/').reverse()[0];
   let fetchRes = await fetch(reqUrl, {
-    method: reqObj.method,
-    headers: Object.assign({}, reqObj.headers, {
+    method: req.method,
+    headers: Object.assign({}, req.headers, {
       authorization: undefined,
-      host: undefined
+      host: undefined,
+      referer: undefined
     })
   });
+
+  res.status(fetchRes.status);
+  Object.keys(fetchRes.headers._headers).forEach((key) => {
+    if ('content-encoding' === key.toLowerCase()) return;
+    let normalizedKey =
+      key.toLowerCase()
+         .split('-')
+         .map((c) => c.replace(/^./, (c) => c.toUpperCase()))
+         .join('-');
+    res.setHeader(normalizedKey, fetchRes.headers._headers[key]);
+  });
+
   if (filename === '' || filename.match(/^index\..*$/)) {
-    return insertScript(await fetchRes.text());
+    insertScript(await fetchRes.text()).pipe(res);
   } else {
-    return fetchRes.body;
+    fetchRes.body.pipe(res);
   }
 };
 
@@ -37,11 +50,9 @@ router.use((req, res, next) => {
   let reqUrl = req.url.substr(1);
   if (!isValidUrl(reqUrl)) next();
   else {
-    proxy(reqUrl, req)
-      .then((bodyPipe) => {
-        bodyPipe.pipe(res);
-        bodyPipe.on('close', next);
-      }).catch((_e) => next(_e));
+    proxy(req, res)
+      .then(() => next())
+      .catch((_e) => next(_e));
   }
 });
 

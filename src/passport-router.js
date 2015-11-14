@@ -19,6 +19,9 @@ function authenticate(username, done) {
 let router = Router();
 router.use(passport.initialize());
 router.use(passport.session());
-router.use(passport.authenticate('digest', { session: false }));
+router.all(
+  [ '/api/', '*/', '*/index.html' ],
+  passport.authenticate('digest', { session: false })
+);
 
 export default router;
