@@ -39,6 +39,7 @@ let proxy = async (req, res) => {
 
 let insertScript = (body) => {
   let $ = cheerio.load(body);
+  $('title').text($('title').text() + ' (via proxy)');
   $('head').append('<script src="/lib/save-store.js"></script>');
   let bodyPipe = new ReadableStreamBuffer();
   bodyPipe.put($.html(), 'utf8');
