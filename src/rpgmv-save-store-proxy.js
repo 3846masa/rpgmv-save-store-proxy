@@ -7,9 +7,16 @@ import cheerio from 'cheerio';
 
 let router = Router();
 
-let proxy = async (reqUrl) => {
+let proxy = async (reqUrl, reqObj) => {
+  console.log(reqObj.headers);
   let filename = url.parse(reqUrl).pathname.split('/').reverse()[0];
-  let fetchRes = await fetch(reqUrl);
+  let fetchRes = await fetch(reqUrl, {
+    method: reqObj.method,
+    headers: Object.assign({}, reqObj.headers, {
+      authorization: undefined,
+      host: undefined
+    })
+  });
   if (filename === '' || filename.match(/^index\..*$/)) {
     return insertScript(await fetchRes.text());
   } else {
@@ -30,7 +37,7 @@ router.use((req, res, next) => {
   let reqUrl = req.url.substr(1);
   if (!isValidUrl(reqUrl)) next();
   else {
-    proxy(reqUrl)
+    proxy(reqUrl, req)
       .then((bodyPipe) => {
         bodyPipe.pipe(res);
         bodyPipe.on('close', next);
