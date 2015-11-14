@@ -1,7 +1,7 @@
 {
   "name": "rpgmv-save-store-proxy",
   "addons": [
-    "mongolab:free"
+    "mongolab"
   ],
   "buildpacks": [
     {
