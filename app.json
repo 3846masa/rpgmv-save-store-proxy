@@ -1,0 +1,19 @@
+{
+  "name": "rpgmv-save-store-proxy",
+  "addons": [
+    "mongolab:free"
+  ],
+  "buildpacks": [
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-nodejs"
+    }
+  ],
+  "env": {
+    "USERNAME": "user",
+    "PASSWORD": "password",
+    "MONGO_URL": ""
+  },
+  "image": "heroku/nodejs",
+  "repository": "https://github.com/3846masa/rpgmv-save-store-proxy",
+  "success_url": "/"
+}

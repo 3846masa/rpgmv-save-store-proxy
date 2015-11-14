@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>RPG-MV Save Store Proxy</title>
+  </head>
+  <body>
+    <h1>RPG-MV Save Store Proxy</h1>
+    <p>
+      RPGツクールMVのセーブデータを保存して，
+      どのデバイスでも同じセーブデータが使えるようになります．
+    </p>
+    <p>
+      下のURL欄にRPGツクールMVで作られたサイトのURLを入力してください．
+    </p>
+    <form id="form">
+      <input id="url" type="text" placeholder="URL">
+      <button>Play!</button>
+    </form>
+
+    <script>
+      document.querySelector('#form').addEventListener('submit', function(ev){
+        ev.preventDefault();
+        location.pathname = document.querySelector('#url').value;
+        return false;
+      });
+    </script>
+  </body>
+</html>
