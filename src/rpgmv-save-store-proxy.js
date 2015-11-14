@@ -31,6 +31,7 @@ let proxy = async (req, res) => {
   });
 
   if (filename === '' || filename.match(/^index\..*$/)) {
+    res.setHeader('Cache-Control', 'private, no-store, no-cache, must-revalidate');
     insertScript(await fetchRes.text()).pipe(res);
   } else {
     fetchRes.body.pipe(res);
