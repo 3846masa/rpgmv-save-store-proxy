@@ -16,7 +16,7 @@ RPGツクールMVで作られたゲームのセーブデータを保管して，
 ```bash
 docker build -t rpgmv-store .
 docker run --name rpgmv-mongo -d mongo mongod --smallfiles
-docker run -P -d --link rpgmv-mongo:mongo rpgmv-store
+docker run -P -d -e USERNAME={any} -e PASSWORD={any} --link rpgmv-mongo:mongo rpgmv-store
 ```
 
 ## License
