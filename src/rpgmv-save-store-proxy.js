@@ -32,9 +32,12 @@ let proxy = async (req, res) => {
 
   if (filename === '' || filename.match(/^index\..*$/)) {
     res.setHeader('Cache-Control', 'private, no-store, no-cache, must-revalidate');
-    insertScript(await fetchRes.text()).pipe(res);
+    let body = insertScript(await fetchRes.text());
+    body.pipe(res);
+    return body;
   } else {
     fetchRes.body.pipe(res);
+    return fetchRes.body;
   }
 };
 
@@ -53,6 +56,11 @@ router.use((req, res, next) => {
   if (!isValidUrl(reqUrl)) next();
   else {
     proxy(req, res)
+      .then((body) => {
+        return new Promise((resolve) => {
+          body.on('end', resolve);
+        });
+      })
       .then(() => next())
       .catch((_e) => next(_e));
   }
