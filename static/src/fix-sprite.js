@@ -8,10 +8,8 @@
   Sprite.prototype._onBitmapLoad = function() {
     let _width = this._bitmap.width;
     let _height = this._bitmap.height;
-    this._bitmap.width |= 0;
-    this._bitmap.height |= 0;
+    this._bitmap.__defineGetter__('width', () => _width || 0);
+    this._bitmap.__defineGetter__('height', () => _height || 0);
     _onBitmapLoad.apply(this, arguments);
-    this._bitmap.width = _width;
-    this._bitmap.height = _height;
   };
 })();
