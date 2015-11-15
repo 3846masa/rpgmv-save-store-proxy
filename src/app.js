@@ -12,7 +12,7 @@ import path from 'path';
 
 let app = Express();
 
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '10mb' }));
 app.use(methodOverride());
 
 app.use(passportRouter);
