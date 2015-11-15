@@ -10,7 +10,6 @@ let mongoUrl =
   ((ENV.MONGO_PORT_27017_TCP_ADDR && ENV.MONGO_PORT_27017_TCP_PORT) ?
   `mongodb://${ENV.MONGO_PORT_27017_TCP_ADDR}:${ENV.MONGO_PORT_27017_TCP_PORT}/RPGMVSave` :
   'mongodb://localhost/RPGMVSave');
-console.log(mongoUrl);
 mongoose.connect(mongoUrl);
 
 let router = Router();
