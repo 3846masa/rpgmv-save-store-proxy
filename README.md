@@ -4,6 +4,10 @@ RPG-MV Save Store Proxy
 RPGツクールMVで作られたゲームのセーブデータを保管して，
 どの端末でも同じセーブデータを使えるようにします．
 
+追記：
+オーディオのバグ修正パッチを含んでいます．
+``non-finite``のエラーが回避できます．
+
 ## Heroku
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 

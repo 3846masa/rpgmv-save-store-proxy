@@ -2,6 +2,10 @@ import 'babel-polyfill';
 import 'whatwg-fetch';
 import url from 'url';
 import qs from 'querystring';
+
+/* fix audio */
+import './fix-audio';
+
 const API_ENDPOINT = '/api/v1/RPGMVSaves';
 
 (function() {
