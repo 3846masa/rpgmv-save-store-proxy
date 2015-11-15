@@ -3,8 +3,9 @@ import 'whatwg-fetch';
 import url from 'url';
 import qs from 'querystring';
 
-/* fix audio */
+/* fix patch */
 import './fix-audio';
+import './fix-sprite';
 
 const API_ENDPOINT = '/api/v1/RPGMVSaves';
 
