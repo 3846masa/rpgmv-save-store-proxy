@@ -25,7 +25,11 @@ const API_ENDPOINT = '/api/v1/RPGMVSaves';
       let _func = localStorage[funcName];
       localStorage[funcName] = function() {
         _func.apply(localStorage, arguments);
-        sendStorage();
+        sendStorage()
+          .catch((_e) => {
+            console.error(_e.stack);
+            alert(`Error.\n${_e.name}: ${_e.message}`);
+          });
       };
     });
   }
