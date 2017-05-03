@@ -1,6 +1,8 @@
 RPG-MV Save Store Proxy
 =======================
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/3846masa/rpgmv-save-store-proxy.svg)](https://greenkeeper.io/)
+
 RPGツクールMVで作られたゲームのセーブデータを保管して，
 どの端末でも同じセーブデータを使えるようにします．
 
